@@ -49,9 +49,9 @@ describe Sunspot::SessionProxy::ConnectionPoolSessionProxy do
   it 'should use one connection per thread' do
     threads = []
     sessions = []
-    10.times do
+    5.times do
       threads << Thread.new do
-        1.times do
+        2.times do
           sessions << @plain_proxy.session.to_s
           @plain_proxy.commit
         end
@@ -64,9 +64,9 @@ describe Sunspot::SessionProxy::ConnectionPoolSessionProxy do
   it 'limit number of connections used to pool size' do
     threads = []
     sessions = []
-    50.times do
+    5.times do
       threads << Thread.new do
-        10.times do
+        2.times do
           sessions << @proxy.session.to_s
           @proxy.commit
         end
