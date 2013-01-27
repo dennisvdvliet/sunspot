@@ -49,12 +49,12 @@ describe Sunspot::SessionProxy::ConnectionPoolSessionProxy do
   it 'should use one connection per thread' do
     threads = []
     sessions = []
-    5.times do
+    2.times do
       threads << Thread.new do
         2.times do
           sessions << @plain_proxy.session.to_s
           @plain_proxy.commit
-        end
+         end
       end
     end
     threads.each{ |t| t.join}
