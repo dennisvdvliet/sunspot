@@ -21,8 +21,9 @@ module Sunspot
         LightConfig.build do
           solr do
             url 'http://127.0.0.1:8983/solr'
-            pool_size 5
+            pool_size 2
             pool_timeout 5
+            pool false
           end
           master_solr do
             url nil

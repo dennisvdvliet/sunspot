@@ -144,6 +144,30 @@ module Sunspot #:nodoc:
         @has_master = !!user_configuration_from_key('master_solr')
       end
 
+      def use_connection_pool?
+        unless defined?(@use_connection_pool)
+          @use_connection_pool ||= user_configuration_from_key('solr', 'pool')
+          @use_connection_pool ||= false
+        end
+        @use_connection_pool
+      end
+
+      def pool_size
+        unless defined?(@pool_size)
+          @pool_size ||= user_configuration_from_key('solr', 'pool_size')
+          @pool_size ||= 2
+        end
+        @pool_size
+      end
+
+      def pool_timeout
+        unless defined?(@pool_timeout)
+          @pool_timeout ||= user_configuration_from_key('solr', 'pool_timeout')
+          @pool_timeout ||= 5
+        end
+        @pool_timeout
+      end
+
       # 
       # The default log_level that should be passed to solr. You can
       # change the individual log_levels in the solr admin interface.

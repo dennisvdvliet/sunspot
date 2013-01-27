@@ -34,6 +34,9 @@ module Sunspot #:nodoc:
             SessionProxy::ThreadLocalSessionProxy.new(master_config(configuration)),
             SessionProxy::ThreadLocalSessionProxy.new(slave_config(configuration))
           )
+        elsif configuration.use_connection_pool?
+          # Not tested with master slave setup
+          SessionProxy::ConnectionPoolSessionProxy.new(slave_config(configuration))
         else
           SessionProxy::ThreadLocalSessionProxy.new(slave_config(configuration))
         end
@@ -53,6 +56,11 @@ module Sunspot #:nodoc:
 
       def slave_config(sunspot_rails_configuration)
         config = Sunspot::Configuration.build
+        if sunspot_rails_configuration.use_connection_pool?
+          config.solr.pool = sunspot_rails_configuration.use_connection_pool?
+          config.solr.pool_size = sunspot_rails_configuration.pool_size
+          config.solr.pool_timeout = sunspot_rails_configuration.pool_timeout
+        end
         config.solr.url = URI::HTTP.build(
           :host => sunspot_rails_configuration.hostname,
           :port => sunspot_rails_configuration.port,
