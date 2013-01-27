@@ -1,0 +1,10 @@
+diff a/sunspot/lib/sunspot/configuration.rb b/sunspot/lib/sunspot/configuration.rb	(rejected hunks)
+@@ -25,6 +25,8 @@ module Sunspot
+             url 'http://127.0.0.1:8983/solr'
+             read_timeout nil
+             open_timeout nil
++            pool_size 2
++            pool_timeout 5
+           end
+           master_solr do
+             url nil

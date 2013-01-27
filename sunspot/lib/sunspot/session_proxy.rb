@@ -91,5 +91,13 @@ module Sunspot
         'retry_5xx_session_proxy'
       )
     )
+    autoload(
+      :ConnectionPoolSessionProxy,
+      File.join(
+        File.dirname(__FILE__),
+        'session_proxy',
+        'connection_pool_session_proxy'
+      )
+    )
   end
 end
